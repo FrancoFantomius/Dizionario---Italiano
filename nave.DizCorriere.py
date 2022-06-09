@@ -28,13 +28,13 @@ def reset_db():
     conn.close()
 
 
-def aggiungi_parola(n, parola, tipo, genere, aggiuntivo, link):
+def aggiungi_parola(n, lettera, parola, tipo, genere, aggiuntivo, link):
     id = mt.to36(n)
     conn = sqlite3.connect('dizionari.corriere.it.db')
     c = conn.cursor()
     c.execute("""INSERT INTO {} (
                 id, parola, tipo, genere, aggiuntivo, link) 
-                VALUES (?, ?, ?, ?, ?, ?)""".format(parola[0].upper()), (id, parola, tipo, genere, aggiuntivo, link))
+                VALUES (?, ?, ?, ?, ?, ?)""".format(lettera), (id, parola, tipo, genere, aggiuntivo, link))
     conn.commit()
     conn.close()
 
@@ -140,5 +140,5 @@ for lettera in alfabeto:
             conoscenza = conosci(parole['parole'][n_parole])
             #print(mt.to36(n), parola, conoscenza['tipo'], conoscenza['genere'],
             #    conoscenza['aggiuntivo'], parole['link'][n_parole])
-            aggiungi_parola(n, parola, conoscenza['tipo'], conoscenza['genere'], conoscenza['aggiuntivo'], parole['link'][n_parole])
+            aggiungi_parola(n, lettera, parola, conoscenza['tipo'], conoscenza['genere'], conoscenza['aggiuntivo'], parole['link'][n_parole])
         print(link)
